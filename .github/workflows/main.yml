@@ -15,10 +15,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install
+        run: npm install
       - name: npm install and build
-        run: |
-          npm ci
+        run:
           npm run build --if-present
+          npm ci
         env:
           CI: true
       - name: Deploy to AWS
