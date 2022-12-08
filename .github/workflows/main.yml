@@ -1,6 +1,7 @@
 name: Deploy
 
 on: [push]
+
 jobs:
   deploy:
     name: build and deploy lambda
@@ -11,20 +12,25 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
+        
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+        
       - name: Install
         run: npm install
+        
       - name: npm install and build
         run:
           npm run build --if-present
           npm ci
         env:
           CI: true
+        
       - name: Zip
-        run: (zip -r ../function.zip .)
+        run: (cd dist && zip -r ../function.zip .)
+        
       - name: Deploy to AWS
         uses: appleboy/lambda-action@master
         with:
