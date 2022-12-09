@@ -11,20 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
         
-      - name: Install
-        run: npm install
+      - name: Install dependencies
+        run: npm ci
         
-      - name: npm install and build
+      - name: npm build
         run:
           npm run build --if-present
-          npm ci
         env:
           CI: true
         
