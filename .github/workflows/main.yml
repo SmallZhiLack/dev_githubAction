@@ -19,11 +19,12 @@ jobs:
           node-version: ${{ matrix.node-version }}
         
       - name: Install dependencies
-        run: npm ci
+        run: npm install
         
       - name: npm build
         run:
           npm run build --if-present
+          npm ci
         env:
           CI: true
         
